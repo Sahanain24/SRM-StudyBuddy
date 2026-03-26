@@ -1,0 +1,22 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-learning",
+      "description": "Student studying with technology",
+      "imageUrl": "https://picsum.photos/seed/srm-study-1/1200/800",
+      "imageHint": "student learning"
+    },
+    {
+      "id": "coding-banner",
+      "description": "Code on a screen",
+      "imageUrl": "https://picsum.photos/seed/srm-study-2/800/400",
+      "imageHint": "computer code"
+    },
+    {
+      "id": "quiz-banner",
+      "description": "Person taking notes",
+      "imageUrl": "https://picsum.photos/seed/srm-study-3/800/400",
+      "imageHint": "education quiz"
+    }
+  ]
+}
