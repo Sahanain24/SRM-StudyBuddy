@@ -2,13 +2,28 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import { User } from '@/lib/models/User';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await connectDB();
-    const users = await User.find({});
+    const { searchParams } = new URL(request.url);
+    const role = searchParams.get('role');
+
+    const query: any = { isActive: { $ne: false } };
+    if (role === 'teacher') {
+      query.role = 'teacher';
+    } else if (role === 'student') {
+      query.role = 'student';
+    } else if (role) {
+      query.role = role;
+    }
+
+    const users = await User.find(query)
+      .select('_id name email role program year section rollNumber assignedPrograms')
+      .lean();
     return NextResponse.json(users);
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 });
+  } catch (error: any) {
+    console.error('GET /api/users error:', error?.message || error);
+    return NextResponse.json({ error: 'Failed to fetch users', detail: error?.message }, { status: 500 });
   }
 }
 
